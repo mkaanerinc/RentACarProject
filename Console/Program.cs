@@ -7,7 +7,8 @@ CarManager carManager = new CarManager(new InMemoryCarDal());
 carManager.Add(new Car { 
     CarId = 6, 
     BrandId = 1, 
-    ColorId = 1, 
+    ColorId = 1,
+    Name = "Test Car",
     DailyPrice = 33, 
     ModelYear = 1998, 
     Description = "Test Car"
@@ -20,6 +21,7 @@ carManager.Update( new Car
     CarId = 6,
     BrandId = 1,
     ColorId = 1,
+    Name = "Test Car",
     DailyPrice = 33,
     ModelYear = 1998,
     Description = "Updated Test Car"
@@ -32,6 +34,7 @@ carManager.Delete(new Car
     CarId = 6,
     BrandId = 1,
     ColorId = 1,
+    Name = "Test Car",
     DailyPrice = 33,
     ModelYear = 1998,
     Description = "Updated Test Car"
