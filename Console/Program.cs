@@ -16,9 +16,9 @@ brandManager.Add(new Brand
                      Name = "Test Brand",
                  });
 
-Console.WriteLine(brandManager.GetById(1).Name);
+Console.WriteLine(brandManager.GetById(1).Data.Name);
 
-List<Brand> brands = brandManager.GetAll();
+List<Brand> brands = brandManager.GetAll().Data;
 
 foreach (Brand brand in brands)
 {
@@ -30,9 +30,9 @@ colorManager.Add(new Color
     Name = "Test Color",
 });
 
-Console.WriteLine(colorManager.GetById(1).Name);
+Console.WriteLine(colorManager.GetById(1).Data.Name);
 
-List<Color> colors = colorManager.GetAll();
+List<Color> colors = colorManager.GetAll().Data;
 
 foreach (Color color in colors)
 {
@@ -43,7 +43,7 @@ carManager.Add(
     new Car { BrandId = 1, ColorId = 1, Name = "Test Car", DailyPrice = 10, ModelYear = 1998, Description = "My Test Car"}
 );
 
-List<CarDetailDto> carDetails = carManager.GetCarDetails();
+List<CarDetailDto> carDetails = carManager.GetCarDetails().Data;
 foreach (var carDetail in carDetails)
 {
     Console.WriteLine(carDetail.CarId + " => " + carDetail.CarName + " => " + carDetail.BrandName + " => " + carDetail.ColorName);
@@ -63,7 +63,7 @@ carManager.Add(new Car
     Description = "Test Car"
 });
 
-Console.WriteLine(carManager.GetById(6).Description);
+Console.WriteLine(carManager.GetById(6).Data.Description);
 
 carManager.Update(new Car
 {
@@ -76,7 +76,7 @@ carManager.Update(new Car
     Description = "Updated Test Car"
 });
 
-Console.WriteLine(carManager.GetById(6).Description);
+Console.WriteLine(carManager.GetById(6).Data.Description);
 
 carManager.Delete(new Car
 {
@@ -89,7 +89,7 @@ carManager.Delete(new Car
     Description = "Updated Test Car"
 });
 
-List<Car> cars = carManager.GetAll();
+List<Car> cars = carManager.GetAll().Data;
 
 foreach (var car in cars)
 {
