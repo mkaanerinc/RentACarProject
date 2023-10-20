@@ -16,7 +16,7 @@ namespace DataAccess.Concrete.EntityFramework
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(@"Server=LAPTOP-TAKPAA66;Database=RentACarProjectDb;Trusted_Connection=true");
+            optionsBuilder.UseSqlServer(@"Server=LAPTOP-TAKPAA66;Database=RentACarProjectDb;Trusted_Connection=true;TrustServerCertificate=True;MultiSubnetFailover=True");
         }
     }
 }
