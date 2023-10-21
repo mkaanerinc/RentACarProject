@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Core.Utilities.Business;
 using Core.Utilities.Results.Abstract;
 using Core.Utilities.Results.Concrete;
 using DataAccess.Abstract;
@@ -21,13 +22,10 @@ namespace Business.Concrete
         }
         public IResult Add(Rental rental)
         {
-            List<Rental> rentedCars = _rentalDal.GetAll(r => r.CarId == rental.CarId);
+            IResult result = BusinessRules.Run(CheckIfRentalReturnDateIsValid(rental));
 
-            foreach (Rental rentedCar in rentedCars)
-            {
-                if (rentedCar.ReturnDate is null)
-                    return new ErrorResult();
-            }
+            if (result is not null)
+                return result;
 
             _rentalDal.Add(rental);
 
@@ -55,6 +53,19 @@ namespace Business.Concrete
         public IResult Update(Rental rental)
         {
             _rentalDal.Update(rental);
+
+            return new SuccessResult();
+        }
+
+        private IResult CheckIfRentalReturnDateIsValid(Rental rental)
+        {
+            List<Rental> rentedCars = _rentalDal.GetAll(r => r.CarId == rental.CarId);
+
+            foreach (Rental rentedCar in rentedCars)
+            {
+                if (rentedCar.ReturnDate is null)
+                    return new ErrorResult();
+            }
 
             return new SuccessResult();
         }
