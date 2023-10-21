@@ -23,8 +23,7 @@ namespace Business.Concrete
         
         public IResult Add(Car car)
         {
-            if(car.Name.Length >= 2 && car.DailyPrice > 0)
-                _carDal.Add(car);
+            _carDal.Add(car);
 
             return new SuccessResult();
 
