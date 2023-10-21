@@ -21,9 +21,18 @@ namespace Business.Concrete
         }
         public IResult Add(Rental rental)
         {
+            List<Rental> rentedCars = _rentalDal.GetAll(r => r.CarId == rental.CarId);
+
+            foreach (Rental rentedCar in rentedCars)
+            {
+                if (rentedCar.ReturnDate is null)
+                    return new ErrorResult();
+            }
+
             _rentalDal.Add(rental);
 
             return new SuccessResult();
+            
         }
 
         public IResult Delete(Rental rental)
