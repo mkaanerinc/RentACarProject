@@ -36,9 +36,12 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<UserManager>().As<IUserService>().SingleInstance();
             builder.RegisterType<EFUserDal>().As<IUserDal>().SingleInstance();
 
-            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
+            builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
+            builder.RegisterType<EFCarImageDal>().As<ICarImageDal>().SingleInstance();
 
             // AOP implementation
+
+            var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
                 .EnableInterfaceInterceptors(new ProxyGenerationOptions()
