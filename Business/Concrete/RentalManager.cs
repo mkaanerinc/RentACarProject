@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Business;
@@ -33,7 +34,7 @@ namespace Business.Concrete
 
             _rentalDal.Add(rental);
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.RentalAdded);
             
         }
 
@@ -41,17 +42,17 @@ namespace Business.Concrete
         {
             _rentalDal.Delete(rental);
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.RentalDeleted);
         }
 
         public IDataResult<List<Rental>> GetAll()
         {
-            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll());
+            return new SuccessDataResult<List<Rental>>(_rentalDal.GetAll(), Messages.RentalsListed);
         }
 
         public IDataResult<Rental> GetById(int rentalId)
         {
-            return new SuccessDataResult<Rental>(_rentalDal.Get(c => c.RentalId == rentalId));
+            return new SuccessDataResult<Rental>(_rentalDal.Get(c => c.RentalId == rentalId), Messages.RentalListed);
         }
 
         [ValidationAspect(typeof(RentalValidator))]
@@ -59,7 +60,7 @@ namespace Business.Concrete
         {
             _rentalDal.Update(rental);
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.RentalUpdated);
         }
 
         private IResult CheckIfRentalReturnDateIsValid(Rental rental)
@@ -69,10 +70,10 @@ namespace Business.Concrete
             foreach (Rental rentedCar in rentedCars)
             {
                 if (rentedCar.ReturnDate is null)
-                    return new ErrorResult();
+                    return new ErrorResult(Messages.InvalidRental);
             }
 
-            return new SuccessResult();
+            return null;
         }
     }
 }

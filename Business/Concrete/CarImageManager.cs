@@ -39,7 +39,7 @@ namespace Business.Concrete
 
             _carImageDal.Add(carImage);
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.CarImageAdded);
         }
 
         public IResult Delete(CarImage carImage)
@@ -48,17 +48,17 @@ namespace Business.Concrete
 
             _carImageDal.Delete(carImage);
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.CarImageDeleted);
         }
 
         public IDataResult<List<CarImage>> GetAll()
         {
-            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll());
+            return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(), Messages.CarImagesListed);
         }
 
         public IDataResult<CarImage> GetById(int carImageId)
         {
-            return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.CarImageId == carImageId));
+            return new SuccessDataResult<CarImage>(_carImageDal.Get(c => c.CarImageId == carImageId), Messages.CarImageListed);
         }
 
         public IDataResult<List<CarImage>> GetCarImagesByCarId(int carId)
@@ -67,11 +67,11 @@ namespace Business.Concrete
 
             if (!result.Success)
             {
-                return new SuccessDataResult<List<CarImage>>(GetCarImagesByDefaultCarImage(carId).Data);
+                return new SuccessDataResult<List<CarImage>>(GetCarImagesByDefaultCarImage(carId).Data, Messages.DefaultCarImageListed);
             }
             else
             {
-                return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == carId));
+                return new SuccessDataResult<List<CarImage>>(_carImageDal.GetAll(c => c.CarId == carId), Messages.CarImagesListed);
             }
         }
 
@@ -81,14 +81,14 @@ namespace Business.Concrete
 
             _carImageDal.Update(carImage);
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.CarImageUpdated);
         }
 
         private IResult CheckIfCarImagesLimitExceded(int carId)
         {
             if (_carImageDal.GetAll(c => c.CarId == carId).Count() == 5)
             {
-                return new ErrorResult();
+                return new ErrorResult(Messages.CarImageLimitExceded);
             }
 
             return null;

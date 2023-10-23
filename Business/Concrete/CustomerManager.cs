@@ -1,4 +1,5 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Business.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
 using Core.Utilities.Results.Abstract;
@@ -27,24 +28,24 @@ namespace Business.Concrete
         {
             _customerDal.Add(customer);
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.CustomerAdded);
         }
 
         public IResult Delete(Customer customer)
         {
             _customerDal.Delete(customer);
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.CustomerDeleted);
         }
 
         public IDataResult<List<Customer>> GetAll()
         {
-            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll());
+            return new SuccessDataResult<List<Customer>>(_customerDal.GetAll(), Messages.CustomersListed);
         }
 
         public IDataResult<Customer> GetById(int customerId)
         {
-            return new SuccessDataResult<Customer>(_customerDal.Get(c => c.CustomerId == customerId));
+            return new SuccessDataResult<Customer>(_customerDal.Get(c => c.CustomerId == customerId), Messages.CustomerListed);
         }
 
         [ValidationAspect(typeof(CustomerValidator))]
@@ -52,7 +53,7 @@ namespace Business.Concrete
         {
             _customerDal.Update(customer);
 
-            return new SuccessResult();
+            return new SuccessResult(Messages.CustomerUpdated);
         }
     }
 }
