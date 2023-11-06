@@ -55,5 +55,13 @@ namespace Business.Constants
         public static readonly string DefaultCarImageListed = "Araba resmi olmadığı için varsayılan araba resmi listelenmiştir.";
 
         public static readonly string AuthorizationDenied = "Yetkisiz giriş";
+        public static readonly string ClaimsListed = "Claim'ler listelendi";
+        public static readonly string AccessTokenCreated = "Access Token oluşturuldu";
+        public static readonly string UserNotFound = "Kullanıcı bulunamadı";
+        public static readonly string SuccessfulLogin = "Giriş başarılı";
+        public static readonly string PasswordError = "Parola veya kullanıcı adı hatalı";
+        public static readonly string UserRegistered = "Kullanıcı kayıt edildi";
+        public static readonly string UserAlreadyExists = "Kullanıcı kayıtlıdır";
+
     }
 }
