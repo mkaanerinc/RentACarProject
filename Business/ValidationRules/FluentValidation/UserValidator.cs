@@ -1,4 +1,4 @@
-﻿using Entities.Concrete;
+﻿using Core.Entities.Concrete;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
@@ -23,10 +23,6 @@ namespace Business.ValidationRules.FluentValidation
             RuleFor(u => u.Email)
                 .NotEmpty().WithMessage("Email address is required.")
                 .EmailAddress().WithMessage("A valid email address is required.");
-
-            RuleFor(u => u.Password)
-                .NotEmpty().WithMessage("Password is required.")
-                .MinimumLength(2).WithMessage("Password minimum length must be two.");
         }
     }
 }
