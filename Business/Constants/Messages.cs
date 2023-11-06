@@ -53,5 +53,7 @@ namespace Business.Constants
         public static readonly string CarImageListed = "Araba resmi listelendi";
         public static readonly string CarImageLimitExceded = "Araba resmi yükleme limiti dolduğu için yükleme başarısız";
         public static readonly string DefaultCarImageListed = "Araba resmi olmadığı için varsayılan araba resmi listelenmiştir.";
+
+        public static readonly string AuthorizationDenied = "Yetkisiz giriş";
     }
 }
