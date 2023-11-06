@@ -6,6 +6,7 @@ using Castle.DynamicProxy;
 using Core.Utilities.Helpers.FileHelper.Abstract;
 using Core.Utilities.Helpers.FileHelper.Concrete;
 using Core.Utilities.Interceptors;
+using Core.Utilities.Security.JWT;
 using DataAccess.Abstract;
 using DataAccess.Concrete.EntityFramework;
 using System;
@@ -41,7 +42,11 @@ namespace Business.DependencyResolvers.Autofac
             builder.RegisterType<CarImageManager>().As<ICarImageService>().SingleInstance();
             builder.RegisterType<EFCarImageDal>().As<ICarImageDal>().SingleInstance();
 
+            builder.RegisterType<AuthManager>().As<IAuthService>().SingleInstance();
+
             builder.RegisterType<ImageFileManager>().As<IFileHelper>().SingleInstance();
+            builder.RegisterType<JwtHelper>().As<ITokenHelper>().SingleInstance();
+
 
             // AOP implementation
 

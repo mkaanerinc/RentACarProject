@@ -1,11 +1,13 @@
 using Autofac;
 using Autofac.Extensions.DependencyInjection;
-using Business.Abstract;
-using Business.Concrete;
 using Business.DependencyResolvers.Autofac;
-using DataAccess.Abstract;
-using DataAccess.Concrete.EntityFramework;
-using Microsoft.EntityFrameworkCore;
+using Core.Utilities.Security.JWT;
+using Microsoft.IdentityModel.Tokens;
+using Core.DependencyResolvers;
+using Core.Utilities.IoC;
+using Core.Extensions;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Core.Utilities.Security.Encryption;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,6 +16,29 @@ builder.Host.UseServiceProviderFactory(new AutofacServiceProviderFactory());
 builder.Host.ConfigureContainer<ContainerBuilder>(builder =>
 {
     builder.RegisterModule(new BusinessModule());
+});
+
+// Token Configuration
+var tokenOptions = builder.Configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+   .AddJwtBearer(options =>
+   {
+       options.TokenValidationParameters = new TokenValidationParameters
+       {
+           ValidateIssuer = true,
+           ValidateAudience = true,
+           ValidateLifetime = true,
+           ValidIssuer = tokenOptions.Issuer,
+           ValidAudience = tokenOptions.Audience,
+           ValidateIssuerSigningKey = true,
+           IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey)
+       };
+   });
+
+builder.Services.AddDependencyResolvers(new ICoreModule[]
+{
+                new CoreModule()
 });
 
 // Add services to the container.
