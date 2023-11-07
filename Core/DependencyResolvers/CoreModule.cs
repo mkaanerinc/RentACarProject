@@ -3,6 +3,7 @@ using Core.CrossCuttingConcerns.Caching.Concrete.Microsoft;
 using Core.Utilities.IoC;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
