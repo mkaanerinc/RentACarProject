@@ -52,7 +52,12 @@ namespace Business.Concrete
 
         public IDataResult<Rental> GetById(int rentalId)
         {
-            return new SuccessDataResult<Rental>(_rentalDal.Get(c => c.RentalId == rentalId), Messages.RentalListed);
+            Rental rental = _rentalDal.Get(r => r.RentalId == rentalId);
+
+            if (rental is null)
+                return new ErrorDataResult<Rental>(Messages.InvalidRentalId);
+
+            return new SuccessDataResult<Rental>(rental, Messages.RentalListed);
         }
 
         [ValidationAspect(typeof(RentalValidator))]
@@ -73,7 +78,7 @@ namespace Business.Concrete
                     return new ErrorResult(Messages.InvalidRental);
             }
 
-            return null;
+            return new SuccessResult();
         }
     }
 }

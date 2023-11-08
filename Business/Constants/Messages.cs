@@ -32,6 +32,7 @@ namespace Business.Constants
         public static readonly string RentalsListed = "Kiralık Arabalar listelendi";
         public static readonly string RentalListed = "Kiralık Araba listelendi";
         public static readonly string InvalidRental = "Seçili kiralık araba kiralanmıştır";
+        public static readonly string InvalidRentalId = "Geçersiz kiralık araba numarası";
 
         public static readonly string UserAdded = "Kullanıcı eklendi";
         public static readonly string UserDeleted = "Kullanıcı silindi";
