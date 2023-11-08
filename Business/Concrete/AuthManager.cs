@@ -37,12 +37,12 @@ namespace Business.Concrete
             var userToCheck = _userService.GetByEmail(userForLoginDto.Email).Data;
             if (userToCheck == null)
             {
-                return new ErrorDataResult<User>(Messages.UserNotFound);
+                return new ErrorDataResult<User>(Messages.UserInfoInvalid);
             }
 
             if (!HashingHelper.VerifyPasswordHash(userForLoginDto.Password, userToCheck.PasswordHash, userToCheck.PasswordSalt))
             {
-                return new ErrorDataResult<User>(Messages.PasswordError);
+                return new ErrorDataResult<User>(Messages.UserInfoInvalid);
             }
 
             return new SuccessDataResult<User>(userToCheck, Messages.SuccessfulLogin);
