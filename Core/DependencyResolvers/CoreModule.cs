@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Diagnostics;
+using Core.CrossCuttingConcerns.Logging.Serilog.Loggers;
 
 namespace Core.DependencyResolvers
 {
@@ -21,6 +22,8 @@ namespace Core.DependencyResolvers
             serviceCollection.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             serviceCollection.AddSingleton<ICacheManager, MemoryCacheManager>();
             serviceCollection.AddSingleton<Stopwatch>();
+            serviceCollection.AddTransient<FileLogger>();
+            serviceCollection.AddTransient<MsSqlLogger>();
         }
     }
 }
