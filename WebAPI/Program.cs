@@ -44,6 +44,9 @@ builder.Services.AddDependencyResolvers(new ICoreModule[]
 // Add services to the container.
 
 builder.Services.AddControllers();
+
+builder.Services.AddCors();
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
@@ -56,6 +59,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(builder =>
+{
+    builder.WithOrigins("https://localhost:7004").AllowAnyHeader();
+    builder.WithOrigins("http://localhost:5201").AllowAnyHeader();
+});
+
+app.UseHttpsRedirection();
 
 app.UseAuthentication();
 
